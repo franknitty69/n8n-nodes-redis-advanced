@@ -1,0 +1,20 @@
+FROM n8nio/n8n:latest
+
+# Switch to root to install packages
+USER root
+
+# Copy the built node package
+COPY dist/ /usr/local/lib/node_modules/n8n-nodes-redis-enhanced/
+COPY package.json /usr/local/lib/node_modules/n8n-nodes-redis-enhanced/
+
+# Install dependencies
+RUN cd /usr/local/lib/node_modules/n8n-nodes-redis-enhanced && \
+    npm install --production --no-package-lock redis@^5.6.0 @types/lodash@^4.17.20
+
+# Make n8n aware of the custom node
+ENV N8N_COMMUNITY_PACKAGES_ENABLED=true
+
+# Switch back to n8n user
+USER node
+
+# The node will be automatically discovered by n8n

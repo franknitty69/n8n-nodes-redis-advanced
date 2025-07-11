@@ -16,23 +16,23 @@ import {
 	setValue,
 } from './utils';
 
-export class Redis implements INodeType {
+export class RedisEnhanced implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Redis',
-		name: 'redis',
-		icon: 'file:redis.svg',
+		displayName: 'Redis Enhanced',
+		name: 'redisEnhanced',
+		icon: 'file:redisEnhanced.svg',
 		group: ['input'],
 		version: 1,
-		description: 'Get, send and update data in Redis',
+		description: 'Get, send and update data in Redis with enhanced operations',
 		defaults: {
-			name: 'Redis',
+			name: 'Redis Enhanced',
 		},
 		inputs: [NodeConnectionType.Main],
 		outputs: [NodeConnectionType.Main],
 		usableAsTool: true,
 		credentials: [
 			{
-				name: 'redis',
+				name: 'redisEnhanced',
 				required: true,
 				testedBy: 'redisConnectionTest',
 			},
@@ -1134,7 +1134,7 @@ export class Redis implements INodeType {
 		//       have a parameter field for a path. Because it is not possible to set
 		//       array, object via parameter directly (should maybe be possible?!?!)
 		//       Should maybe have a parameter which is JSON.
-		const credentials = await this.getCredentials<RedisCredential>('redis');
+		const credentials = await this.getCredentials<RedisCredential>('redisEnhanced');
 
 		const client = setupRedisClient(credentials);
 		await client.connect();
@@ -1297,7 +1297,7 @@ export class Redis implements INodeType {
 						const cursor = this.getNodeParameter('cursor', itemIndex) as number;
 						const pattern = this.getNodeParameter('pattern', itemIndex) as string;
 						const count = this.getNodeParameter('count', itemIndex) as number;
-						const result = await client.scan(cursor, { MATCH: pattern, COUNT: count });
+						const result = await client.scan(cursor.toString(), { MATCH: pattern, COUNT: count });
 						returnItems.push({ json: { cursor: result.cursor, keys: result.keys } });
 					} else if (operation === 'ttl') {
 						const key = this.getNodeParameter('key', itemIndex) as string;
@@ -1448,7 +1448,8 @@ export class Redis implements INodeType {
 						const keyArray = keys ? keys.split(/\s+/).filter(k => k.length > 0) : [];
 						const argArray = args ? args.split(/\s+/).filter(a => a.length > 0) : [];
 						const result = await client.eval(script, { keys: keyArray, arguments: argArray });
-						returnItems.push({ json: { result } });
+						const serializedResult = typeof result === 'bigint' ? Number(result) : result;
+						returnItems.push({ json: { result: serializedResult } });
 					}
 				} catch (error) {
 					if (this.continueOnFail()) {

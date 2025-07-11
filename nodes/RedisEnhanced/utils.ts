@@ -11,12 +11,17 @@ import { createClient } from 'redis';
 import type { RedisCredential, RedisClient } from './types';
 
 export function setupRedisClient(credentials: RedisCredential): RedisClient {
+	const socketConfig: any = {
+		host: credentials.host,
+		port: credentials.port,
+	};
+
+	if (credentials.ssl === true) {
+		socketConfig.tls = true;
+	}
+
 	return createClient({
-		socket: {
-			host: credentials.host,
-			port: credentials.port,
-			tls: credentials.ssl === true,
-		},
+		socket: socketConfig,
 		database: credentials.database,
 		username: credentials.user || undefined,
 		password: credentials.password || undefined,
@@ -101,6 +106,8 @@ export async function getValue(client: RedisClient, keyName: string, type?: stri
 	} else if (type === 'sets') {
 		return await client.sMembers(keyName);
 	}
+
+	return undefined;
 }
 
 export async function setValue(
