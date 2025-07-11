@@ -1,6 +1,6 @@
 {
   "name": "@vicenterusso/n8n-nodes-redis-enhanced",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Enhanced Redis node for n8n with comprehensive operations including pub/sub, lists, sets, hashes, and TTL support",
   "keywords": [
     "n8n-community-node-package",
