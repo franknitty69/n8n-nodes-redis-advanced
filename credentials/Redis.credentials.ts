@@ -1,9 +1,9 @@
 import type { ICredentialType, INodeProperties } from 'n8n-workflow';
 
-export class RedisEnhanced implements ICredentialType {
-	name = 'redisEnhanced';
+export class Redis implements ICredentialType {
+	name = 'redis';
 
-	displayName = 'Redis Enhanced';
+	displayName = 'Redis';
 
 	documentationUrl = 'https://redis.io/docs/';
 

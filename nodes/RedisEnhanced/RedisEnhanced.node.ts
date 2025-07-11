@@ -32,7 +32,7 @@ export class RedisEnhanced implements INodeType {
 		usableAsTool: true,
 		credentials: [
 			{
-				name: 'redisEnhanced',
+				name: 'redis',
 				required: true,
 				testedBy: 'redisConnectionTest',
 			},
@@ -1134,7 +1134,7 @@ export class RedisEnhanced implements INodeType {
 		//       have a parameter field for a path. Because it is not possible to set
 		//       array, object via parameter directly (should maybe be possible?!?!)
 		//       Should maybe have a parameter which is JSON.
-		const credentials = await this.getCredentials<RedisCredential>('redisEnhanced');
+		const credentials = await this.getCredentials<RedisCredential>('redis');
 
 		const client = setupRedisClient(credentials);
 		await client.connect();
