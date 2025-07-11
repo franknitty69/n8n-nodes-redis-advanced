@@ -1,19 +1,24 @@
 {
-  "name": "n8n-nodes-<...>",
+  "name": "n8n-nodes-redis-enhanced",
   "version": "0.1.0",
-  "description": "",
+  "description": "Enhanced Redis node for n8n with comprehensive operations including pub/sub, lists, sets, hashes, and TTL support",
   "keywords": [
-    "n8n-community-node-package"
+    "n8n-community-node-package",
+    "redis",
+    "database",
+    "cache",
+    "pub-sub",
+    "key-value"
   ],
   "license": "MIT",
   "homepage": "",
   "author": {
-    "name": "",
-    "email": ""
+    "name": "Vicente Russo Neto",
+    "email": "vicente.russo@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/<...>/n8n-nodes-<...>.git"
+    "url": "https://github.com/vicenterusso/n8n-nodes-redis-enhanced.git"
   },
   "engines": {
     "node": ">=20.15"
@@ -33,12 +38,10 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/ExampleCredentialsApi.credentials.js",
-      "dist/credentials/HttpBinApi.credentials.js"
+      "dist/credentials/Redis.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/ExampleNode/ExampleNode.node.js",
-      "dist/nodes/HttpBin/HttpBin.node.js"
+      "dist/nodes/Redis/Redis.node.js"
     ]
   },
   "devDependencies": {
@@ -51,5 +54,10 @@
   },
   "peerDependencies": {
     "n8n-workflow": "*"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.17.20",
+    "@types/redis": "^4.0.10",
+    "redis": "^5.6.0"
   }
 }
