@@ -1,5 +1,5 @@
 {
-  "name": "@vicenterusso/n8n-redis-enhanced",
+  "name": "@vicenterusso/n8n-nodes-redis-enhanced",
   "version": "0.1.0",
   "description": "Enhanced Redis node for n8n with comprehensive operations including pub/sub, lists, sets, hashes, and TTL support",
   "keywords": [
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vicenterusso/n8n-redis-enhanced.git"
+    "url": "https://github.com/vicenterusso/n8n-nodes-redis-enhanced.git"
   },
   "engines": {
     "node": ">=20.15"
@@ -36,7 +36,11 @@
     "prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js nodes credentials package.json && npm test"
   },
   "files": [
-    "dist"
+    "dist/**/*",
+    "!dist/**/*.test.*",
+    "!dist/**/__tests__/**",
+    "!dist/**/*.tsbuildinfo",
+    "index.js"
   ],
   "n8n": {
     "n8nNodesApiVersion": 1,

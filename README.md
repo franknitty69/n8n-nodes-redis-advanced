@@ -1,4 +1,4 @@
-# n8n-redis-enhanced
+# n8n-nodes-redis-enhanced
 
 This is an n8n community node that provides comprehensive Redis integration with enhanced operations for your n8n workflows.
 
@@ -23,13 +23,13 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 ### Quick Install
 1. Open your n8n instance
 2. Go to **Settings** → **Community Nodes**
-3. Enter the package name: `@vicenterusso/n8n-redis-enhanced`
+3. Enter the package name: `@vicenterusso/n8n-nodes-redis-enhanced`
 4. Click **Install**
 5. Restart n8n
 
 ### Manual Installation
 ```bash
-npm install @vicenterusso/n8n-redis-enhanced
+npm install @vicenterusso/n8n-nodes-redis-enhanced
 ```
 
 ## Operations
@@ -189,8 +189,8 @@ To use Redis Enhanced, you need to set up Redis credentials in n8n:
 
 ### Setup
 ```bash
-git clone https://github.com/vicenterusso/n8n-redis-enhanced.git
-cd n8n-redis-enhanced
+git clone https://github.com/vicenterusso/n8n-nodes-redis-enhanced.git
+cd n8n-nodes-redis-enhanced
 npm install
 ```
 
@@ -234,7 +234,7 @@ npm run test:coverage # Run with coverage report
 - [Redis Documentation](https://redis.io/documentation)
 - [Redis Commands Reference](https://redis.io/commands)
 - [n8n Workflow Templates](https://n8n.io/workflows)
-- [Project Repository](https://github.com/vicenterusso/n8n-redis-enhanced)
+- [Project Repository](https://github.com/vicenterusso/n8n-nodes-redis-enhanced)
 
 ## Version History
 
@@ -263,4 +263,4 @@ npm run test:coverage # Run with coverage report
 
 **Author**: Vicente Russo Neto (vicente.russo@gmail.com)  
 **License**: MIT  
-**Repository**: https://github.com/vicenterusso/n8n-redis-enhanced
+**Repository**: https://github.com/vicenterusso/n8n-nodes-redis-enhanced
