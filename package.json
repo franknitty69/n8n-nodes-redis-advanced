@@ -1,6 +1,6 @@
 {
   "name": "@vicenterusso/n8n-nodes-redis-enhanced",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Enhanced Redis node for n8n with comprehensive operations including pub/sub, lists, sets, hashes, and TTL support",
   "keywords": [
     "n8n-community-node-package",
@@ -45,7 +45,7 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/RedisEnhanced.credentials.js"
+      "dist/credentials/Redis.credentials.js"
     ],
     "nodes": [
       "dist/nodes/RedisEnhanced/RedisEnhanced.node.js"
