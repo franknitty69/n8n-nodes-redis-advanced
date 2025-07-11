@@ -182,10 +182,10 @@ describe('RedisEnhanced Node', () => {
 			expect(operationValues).toHaveLength(35);
 		});
 
-		it('should have RedisEnhanced credentials configured', () => {
+		it('should have Redis credentials configured', () => {
 			const credentials = node.description.credentials;
 			expect(credentials).toHaveLength(1);
-			expect(credentials![0].name).toBe('redisEnhanced');
+			expect(credentials![0].name).toBe('redis');
 			expect(credentials![0].required).toBe(true);
 			expect(credentials![0].testedBy).toBe('redisConnectionTest');
 		});
@@ -209,7 +209,7 @@ describe('RedisEnhanced Node', () => {
 				password: 'random',
 			};
 
-			thisArg.getCredentials.calledWith('redisEnhanced').mockResolvedValue(mockCredential);
+			thisArg.getCredentials.calledWith('redis').mockResolvedValue(mockCredential);
 		});
 
 		afterEach(() => {
