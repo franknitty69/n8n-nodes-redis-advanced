@@ -1297,7 +1297,7 @@ export class RedisEnhanced implements INodeType {
 						const cursor = this.getNodeParameter('cursor', itemIndex) as number;
 						const pattern = this.getNodeParameter('pattern', itemIndex) as string;
 						const count = this.getNodeParameter('count', itemIndex) as number;
-						const result = await client.scan(cursor.toString(), { MATCH: pattern, COUNT: count });
+						const result = await client.scan(cursor, { MATCH: pattern, COUNT: count });
 						returnItems.push({ json: { cursor: result.cursor, keys: result.keys } });
 					} else if (operation === 'ttl') {
 						const key = this.getNodeParameter('key', itemIndex) as string;
@@ -1306,12 +1306,12 @@ export class RedisEnhanced implements INodeType {
 					} else if (operation === 'persist') {
 						const key = this.getNodeParameter('key', itemIndex) as string;
 						const result = await client.persist(key);
-						returnItems.push({ json: { key, persisted: result === 1 } });
+						returnItems.push({ json: { key, persisted: result } });
 					} else if (operation === 'expireat') {
 						const key = this.getNodeParameter('key', itemIndex) as string;
 						const timestamp = this.getNodeParameter('timestamp', itemIndex) as number;
 						const result = await client.expireAt(key, timestamp);
-						returnItems.push({ json: { key, set: result === 1 } });
+						returnItems.push({ json: { key, set: result } });
 					} else if (operation === 'getset') {
 						const key = this.getNodeParameter('key', itemIndex) as string;
 						const value = this.getNodeParameter('value', itemIndex) as string;

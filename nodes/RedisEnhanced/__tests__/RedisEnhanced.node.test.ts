@@ -510,7 +510,7 @@ master_failover_state:no-failover
 				mockClient.scan.mockResolvedValue({ cursor: '5', keys: ['user:1', 'user:2'] });
 
 				const output = await node.execute.call(thisArg);
-				expect(mockClient.scan).toHaveBeenCalledWith('0', { MATCH: 'user:*', COUNT: 10 });
+											expect(mockClient.scan).toHaveBeenCalledWith(0, { MATCH: 'user:*', COUNT: 10 });
 				expect(output[0][0].json).toEqual({ cursor: '5', keys: ['user:1', 'user:2'] });
 			});
 		});
