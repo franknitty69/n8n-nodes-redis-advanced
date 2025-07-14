@@ -415,7 +415,10 @@ master_failover_state:no-failover
 
 				const output = await node.execute.call(thisArg);
 				expect(mockClient.set).toHaveBeenCalledWith('key1', 'value1');
-				expect(output[0][0].json).toEqual({ x: 1 });
+				expect(output[0][0].json).toEqual({ 
+					x: 1, 
+					redis_result: { success: true, operation: 'SET ALWAYS', key: 'key1' }
+				});
 			});
 
 			it('should set with expiration', async () => {
@@ -425,16 +428,22 @@ master_failover_state:no-failover
 
 				const output = await node.execute.call(thisArg);
 				expect(mockClient.set).toHaveBeenCalledWith('key1', 'value1', { EX: 300 });
-				expect(output[0][0].json).toEqual({ x: 1 });
+				expect(output[0][0].json).toEqual({ 
+					x: 1, 
+					redis_result: { success: true, operation: 'SET ALWAYS', key: 'key1' }
+				});
 			});
 
 			it('should set with NX mode', async () => {
 				thisArg.getNodeParameter.calledWith('setMode', 0).mockReturnValue('nx');
-			mockClient.set.mockResolvedValue('OK');
+				mockClient.set.mockResolvedValue('OK');
 
 				const output = await node.execute.call(thisArg);
 				expect(mockClient.set).toHaveBeenCalledWith('key1', 'value1', { NX: true });
-				expect(output[0][0].json).toEqual({ x: 1 });
+				expect(output[0][0].json).toEqual({ 
+					x: 1, 
+					redis_result: { success: true, operation: 'SET NX', key: 'key1' }
+				});
 			});
 
 			it('should set with XX mode', async () => {
@@ -443,7 +452,46 @@ master_failover_state:no-failover
 
 				const output = await node.execute.call(thisArg);
 				expect(mockClient.set).toHaveBeenCalledWith('key1', 'value1', { XX: true });
-				expect(output[0][0].json).toEqual({ x: 1 });
+				expect(output[0][0].json).toEqual({ 
+					x: 1, 
+					redis_result: { success: true, operation: 'SET XX', key: 'key1' }
+				});
+			});
+
+			it('should handle NX mode failure when key already exists', async () => {
+				thisArg.getNodeParameter.calledWith('setMode', 0).mockReturnValue('nx');
+				mockClient.set.mockResolvedValue(null);
+
+				const output = await node.execute.call(thisArg);
+				expect(mockClient.set).toHaveBeenCalledWith('key1', 'value1', { NX: true });
+				expect(output[0][0].json).toEqual({ 
+					x: 1, 
+					redis_result: { 
+						success: false, 
+						operation: 'SET NX', 
+						key: 'key1',
+						reason: 'key_already_exists',
+						message: 'SET NX condition not met: key "key1" already exists'
+					}
+				});
+			});
+
+			it('should handle XX mode failure when key does not exist', async () => {
+				thisArg.getNodeParameter.calledWith('setMode', 0).mockReturnValue('xx');
+				mockClient.set.mockResolvedValue(null);
+
+				const output = await node.execute.call(thisArg);
+				expect(mockClient.set).toHaveBeenCalledWith('key1', 'value1', { XX: true });
+				expect(output[0][0].json).toEqual({ 
+					x: 1, 
+					redis_result: { 
+						success: false, 
+						operation: 'SET XX', 
+						key: 'key1',
+						reason: 'key_does_not_exist',
+						message: 'SET XX condition not met: key "key1" does not exist'
+					}
+				});
 			});
 		});
 

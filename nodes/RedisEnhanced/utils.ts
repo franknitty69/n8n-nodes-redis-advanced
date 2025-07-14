@@ -155,12 +155,15 @@ export async function setValue(
 		// Use SET with options if any are specified, otherwise use basic SET
 		if (Object.keys(setOptions).length > 0) {
 			const result = await client.set(keyName, value.toString(), setOptions);
-			// Redis returns null for NX/XX when condition is not met
+			// Redis returns null for NX/XX when condition is not met - this is normal behavior
 			if (result === null && (setMode === 'nx' || setMode === 'xx')) {
-				throw new NodeOperationError(
-					this.getNode(),
-					`SET ${setMode.toUpperCase()} condition not met: key "${keyName}" ${setMode === 'nx' ? 'already exists' : 'does not exist'}`,
-				);
+				return {
+					success: false,
+					operation: `SET ${setMode.toUpperCase()}`,
+					key: keyName,
+					reason: setMode === 'nx' ? 'key_already_exists' : 'key_does_not_exist',
+					message: `SET ${setMode.toUpperCase()} condition not met: key "${keyName}" ${setMode === 'nx' ? 'already exists' : 'does not exist'}`
+				};
 			}
 		} else {
 			await client.set(keyName, value.toString());
@@ -198,5 +201,11 @@ export async function setValue(
 	if (expire && ttl > 0 && type !== 'string') {
 		await client.expire(keyName, ttl);
 	}
-	return;
+	
+	// Return success result for normal operations
+	return {
+		success: true,
+		operation: setMode ? `SET ${setMode.toUpperCase()}` : 'SET',
+		key: keyName
+	};
 }

@@ -1221,8 +1221,11 @@ export class RedisEnhanced implements INodeType {
 						const ttl = this.getNodeParameter('ttl', itemIndex, -1) as number;
 						const setMode = this.getNodeParameter('setMode', itemIndex, 'always') as 'always' | 'nx' | 'xx';
 
-						await setValue.call(this, client, keySet, value, expire, ttl, keyType, valueIsJSON, setMode);
-						returnItems.push(items[itemIndex]);
+						const setResult = await setValue.call(this, client, keySet, value, expire, ttl, keyType, valueIsJSON, setMode);
+						
+						// Add the result to the item JSON so it can be used in conditional nodes
+						item.json = { ...items[itemIndex].json, redis_result: setResult };
+						returnItems.push(item);
 					} else if (operation === 'incr') {
 						const keyIncr = this.getNodeParameter('key', itemIndex) as string;
 						const expire = this.getNodeParameter('expire', itemIndex, false) as boolean;
