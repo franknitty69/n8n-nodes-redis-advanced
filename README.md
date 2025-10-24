@@ -68,6 +68,9 @@ Redis Enhanced provides 35 comprehensive operations organized by category:
 - **Set Is Member (SISMEMBER)** - Check set membership
 - **Set Cardinality (SCARD)** - Get the number of set members
 
+#### 🎯 **JSON Operations**
+- **JSON Set (JSON.set)**: Store JSON values with atomic lock support (NX/XX modes) and TTL
+
 ### 📊 **Sorted Set Operations**
 - **Sorted Set Add (ZADD)** - Add scored members to sorted sets
 - **Sorted Set Range (ZRANGE)** - Get ranges with optional scores

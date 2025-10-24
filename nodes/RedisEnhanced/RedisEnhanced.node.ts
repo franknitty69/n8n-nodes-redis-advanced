@@ -17,254 +17,252 @@ import {
 } from "./utils";
 
 export class RedisEnhanced implements INodeType {
-  description: INodeTypeDescription = {
-    displayName: "Redis Enhanced",
-    name: "redisEnhanced",
-    icon: "file:redisEnhanced.svg",
-    group: ["input"],
-    version: 1,
-    description: "Get, send and update data in Redis with enhanced operations",
-    defaults: {
-      name: "Redis Enhanced",
-    },
-    inputs: [NodeConnectionType.Main],
-    outputs: [NodeConnectionType.Main],
-    usableAsTool: true,
-    credentials: [
-      {
-        name: "redis",
-        required: true,
-        testedBy: "redisConnectionTest",
-      },
-    ],
-    properties: [
-      {
-        displayName: "Operation",
-        name: "operation",
-        type: "options",
-        noDataExpression: true,
-        options: [
-          {
-            name: "Append",
-            value: "append",
-            description: "Append a value to a string",
-            action: "Append value to string",
-          },
-          {
-            name: "Blocking Pop Left",
-            value: "blpop",
-            description: "Blocking pop from the left of a list",
-            action: "Blocking pop from left of list",
-          },
-          {
-            name: "Blocking Pop Right",
-            value: "brpop",
-            description: "Blocking pop from the right of a list",
-            action: "Blocking pop from right of list",
-          },
-          {
-            name: "Delete",
-            value: "delete",
-            description: "Delete a key from Redis",
-            action: "Delete a key from redis",
-          },
-          {
-            name: "Eval",
-            value: "eval",
-            description: "Execute a Lua script",
-            action: "Execute lua script",
-          },
-          {
-            name: "Exists",
-            value: "exists",
-            description: "Check if one or more keys exist",
-            action: "Check if keys exist in redis",
-          },
-          {
-            name: "Expire At",
-            value: "expireat",
-            description: "Set a key to expire at a specific timestamp",
-            action: "Set key to expire at timestamp",
-          },
-          {
-            name: "Get",
-            value: "get",
-            description: "Get the value of a key from Redis",
-            action: "Get the value of a key from redis",
-          },
-          {
-            name: "Get Set",
-            value: "getset",
-            description: "Set a key and return its old value",
-            action: "Set key and return old value",
-          },
-          {
-            name: "Hash Exists",
-            value: "hexists",
-            description: "Check if a hash field exists",
-            action: "Check if hash field exists",
-          },
-          {
-            name: "Hash Keys",
-            value: "hkeys",
-            description: "Get all field names in a hash",
-            action: "Get hash field names",
-          },
-          {
-            name: "Hash Length",
-            value: "hlen",
-            description: "Get the number of fields in a hash",
-            action: "Get hash length",
-          },
-          {
-            name: "Hash Values",
-            value: "hvals",
-            description: "Get all values in a hash",
-            action: "Get hash values",
-          },
-          {
-            name: "Increment",
-            value: "incr",
-            description:
-              "Atomically increments a key by 1. Creates the key if it does not exist.",
-            action:
-              "Atomically increment a key by 1 creates the key if it does not exist",
-          },
-          {
-            name: "Info",
-            value: "info",
-            description: "Returns generic information about the Redis instance",
-            action: "Return generic information about the redis instance",
-          },
-          {
-            name: "Keys",
-            value: "keys",
-            description: "Returns all the keys matching a pattern",
-            action: "Return all keys matching a pattern",
-          },
-          {
-            name: "List Length",
-            value: "llen",
-            description: "Get the length of a list",
-            action: "Get list length",
-          },
-          {
-            name: "Multi Get",
-            value: "mget",
-            description: "Get multiple keys at once",
-            action: "Get multiple keys at once from redis",
-          },
-          {
-            name: "Multi Set",
-            value: "mset",
-            description: "Set multiple keys at once",
-            action: "Set multiple keys at once in redis",
-          },
-          {
-            name: "Persist",
-            value: "persist",
-            description: "Remove the expiration from a key",
-            action: "Remove expiration from a key",
-          },
-          {
-            name: "Pop",
-            value: "pop",
-            description: "Pop data from a redis list",
-            action: "Pop data from a redis list",
-          },
-          {
-            name: "Publish",
-            value: "publish",
-            description: "Publish message to redis channel",
-            action: "Publish message to redis channel",
-          },
-          {
-            name: "Push",
-            value: "push",
-            description: "Push data to a redis list",
-            action: "Push data to a redis list",
-          },
-          {
-            name: "Scan",
-            value: "scan",
-            description: "Incrementally iterate over keys (production-safe)",
-            action: "Scan keys incrementally in redis",
-          },
-          {
-            name: "Set",
-            value: "set",
-            description: "Set the value of a key in redis",
-            action: "Set the value of a key in redis",
-          },
-          {
-            name: "Set Add",
-            value: "sadd",
-            description: "Add members to a set",
-            action: "Add members to set",
-          },
-          {
-            name: "Set Cardinality",
-            value: "scard",
-            description: "Get the number of members in a set",
-            action: "Get set cardinality",
-          },
-          {
-            name: "Set Is Member",
-            value: "sismember",
-            description: "Check if value is a member of a set",
-            action: "Check set membership",
-          },
-          {
-            name: "Set Remove",
-            value: "srem",
-            description: "Remove members from a set",
-            action: "Remove members from set",
-          },
-          {
-            name: "JSON Set",
-            value: "json.set",
-            description: "Set JSON as the value of a key in redis",
-            action: "Set JSON as the value of a key in redis",
-          },
-          {
-            name: "Sorted Set Add",
-            value: "zadd",
-            description: "Add members to a sorted set",
-            action: "Add members to sorted set",
-          },
-          {
-            name: "Sorted Set Cardinality",
-            value: "zcard",
-            description: "Get the number of members in a sorted set",
-            action: "Get sorted set cardinality",
-          },
-          {
-            name: "Sorted Set Range",
-            value: "zrange",
-            description: "Get a range of members from a sorted set",
-            action: "Get range from sorted set",
-          },
-          {
-            name: "Sorted Set Remove",
-            value: "zrem",
-            description: "Remove members from a sorted set",
-            action: "Remove members from sorted set",
-          },
-          {
-            name: "String Length",
-            value: "strlen",
-            description: "Get the length of a string",
-            action: "Get string length",
-          },
-          {
-            name: "TTL",
-            value: "ttl",
-            description: "Get the time to live for a key",
-            action: "Get time to live for a key",
-          },
-        ],
-        default: "info",
-      },
+	description: INodeTypeDescription = {
+		displayName: 'Redis Enhanced',
+		name: 'redisEnhanced',
+		icon: 'file:redisEnhanced.svg',
+		group: ['input'],
+		version: 1,
+		description: 'Get, send and update data in Redis with enhanced operations',
+		defaults: {
+			name: 'Redis Enhanced',
+		},
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
+		usableAsTool: true,
+		credentials: [
+			{
+				name: 'redis',
+				required: true,
+				testedBy: 'redisConnectionTest',
+			},
+		],
+		properties: [
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				options: [
+					{
+						name: 'Append',
+						value: 'append',
+						description: 'Append a value to a string',
+						action: 'Append value to string',
+					},
+					{
+						name: 'Blocking Pop Left',
+						value: 'blpop',
+						description: 'Blocking pop from the left of a list',
+						action: 'Blocking pop from left of list',
+					},
+					{
+						name: 'Blocking Pop Right',
+						value: 'brpop',
+						description: 'Blocking pop from the right of a list',
+						action: 'Blocking pop from right of list',
+					},
+					{
+						name: 'Delete',
+						value: 'delete',
+						description: 'Delete a key from Redis',
+						action: 'Delete a key from redis',
+					},
+					{
+						name: 'Eval',
+						value: 'eval',
+						description: 'Execute a Lua script',
+						action: 'Execute lua script',
+					},
+					{
+						name: 'Exists',
+						value: 'exists',
+						description: 'Check if one or more keys exist',
+						action: 'Check if keys exist in redis',
+					},
+					{
+						name: 'Expire At',
+						value: 'expireat',
+						description: 'Set a key to expire at a specific timestamp',
+						action: 'Set key to expire at timestamp',
+					},
+					{
+						name: 'Get',
+						value: 'get',
+						description: 'Get the value of a key from Redis',
+						action: 'Get the value of a key from redis',
+					},
+					{
+						name: 'Get Set',
+						value: 'getset',
+						description: 'Set a key and return its old value',
+						action: 'Set key and return old value',
+					},
+					{
+						name: 'Hash Exists',
+						value: 'hexists',
+						description: 'Check if a hash field exists',
+						action: 'Check if hash field exists',
+					},
+					{
+						name: 'Hash Keys',
+						value: 'hkeys',
+						description: 'Get all field names in a hash',
+						action: 'Get hash field names',
+					},
+					{
+						name: 'Hash Length',
+						value: 'hlen',
+						description: 'Get the number of fields in a hash',
+						action: 'Get hash length',
+					},
+					{
+						name: 'Hash Values',
+						value: 'hvals',
+						description: 'Get all values in a hash',
+						action: 'Get hash values',
+					},
+					{
+						name: 'Increment',
+						value: 'incr',
+						description: 'Atomically increments a key by 1. Creates the key if it does not exist.',
+						action: 'Atomically increment a key by 1 creates the key if it does not exist',
+					},
+					{
+						name: 'Info',
+						value: 'info',
+						description: 'Returns generic information about the Redis instance',
+						action: 'Return generic information about the redis instance',
+					},
+					{
+					  name: 'JSON Set',
+					  value: 'jsonset',
+					  description: 'Set the JSON value of a key in redis',
+					  action: 'Set the JSON value of a key in redis'
+					},
+					{
+						name: 'Keys',
+						value: 'keys',
+						description: 'Returns all the keys matching a pattern',
+						action: 'Return all keys matching a pattern',
+					},
+					{
+						name: 'List Length',
+						value: 'llen',
+						description: 'Get the length of a list',
+						action: 'Get list length',
+					},
+					{
+						name: 'Multi Get',
+						value: 'mget',
+						description: 'Get multiple keys at once',
+						action: 'Get multiple keys at once from redis',
+					},
+					{
+						name: 'Multi Set',
+						value: 'mset',
+						description: 'Set multiple keys at once',
+						action: 'Set multiple keys at once in redis',
+					},
+					{
+						name: 'Persist',
+						value: 'persist',
+						description: 'Remove the expiration from a key',
+						action: 'Remove expiration from a key',
+					},
+					{
+						name: 'Pop',
+						value: 'pop',
+						description: 'Pop data from a redis list',
+						action: 'Pop data from a redis list',
+					},
+					{
+						name: 'Publish',
+						value: 'publish',
+						description: 'Publish message to redis channel',
+						action: 'Publish message to redis channel',
+					},
+					{
+						name: 'Push',
+						value: 'push',
+						description: 'Push data to a redis list',
+						action: 'Push data to a redis list',
+					},
+					{
+						name: 'Scan',
+						value: 'scan',
+						description: 'Incrementally iterate over keys (production-safe)',
+						action: 'Scan keys incrementally in redis',
+					},
+					{
+						name: 'Set',
+						value: 'set',
+						description: 'Set the value of a key in redis',
+						action: 'Set the value of a key in redis',
+					},
+					{
+						name: 'Set Add',
+						value: 'sadd',
+						description: 'Add members to a set',
+						action: 'Add members to set',
+					},
+					{
+						name: 'Set Cardinality',
+						value: 'scard',
+						description: 'Get the number of members in a set',
+						action: 'Get set cardinality',
+					},
+					{
+						name: 'Set Is Member',
+						value: 'sismember',
+						description: 'Check if value is a member of a set',
+						action: 'Check set membership',
+					},
+					{
+						name: 'Set Remove',
+						value: 'srem',
+						description: 'Remove members from a set',
+						action: 'Remove members from set',
+					},
+					{
+						name: 'Sorted Set Add',
+						value: 'zadd',
+						description: 'Add members to a sorted set',
+						action: 'Add members to sorted set',
+					},
+					{
+						name: 'Sorted Set Cardinality',
+						value: 'zcard',
+						description: 'Get the number of members in a sorted set',
+						action: 'Get sorted set cardinality',
+					},
+					{
+						name: 'Sorted Set Range',
+						value: 'zrange',
+						description: 'Get a range of members from a sorted set',
+						action: 'Get range from sorted set',
+					},
+					{
+						name: 'Sorted Set Remove',
+						value: 'zrem',
+						description: 'Remove members from a sorted set',
+						action: 'Remove members from sorted set',
+					},
+					{
+						name: 'String Length',
+						value: 'strlen',
+						description: 'Get the length of a string',
+						action: 'Get string length',
+					},
+					{
+						name: 'TTL',
+						value: 'ttl',
+						description: 'Get the time to live for a key',
+						action: 'Get time to live for a key',
+					},
+				],
+				default: 'info',
+			},
 
       // ----------------------------------
       //         delete
@@ -354,285 +352,428 @@ export class RedisEnhanced implements INodeType {
         description: "The type of the key to get",
       },
 
-      {
-        displayName: "Options",
-        name: "options",
-        type: "collection",
-        displayOptions: {
-          show: {
-            operation: ["get"],
-          },
-        },
-        placeholder: "Add option",
-        default: {},
-        options: [
-          {
-            displayName: "Dot Notation",
-            name: "dotNotation",
-            type: "boolean",
-            default: true,
-            // eslint-disable-next-line n8n-nodes-base/node-param-description-boolean-without-whether
-            description:
-              '<p>By default, dot-notation is used in property names. This means that "a.b" will set the property "b" underneath "a" so { "a": { "b": value} }.<p></p>If that is not intended this can be deactivated, it will then set { "a.b": value } instead.</p>.',
-          },
-        ],
-      },
+			{
+				displayName: 'Options',
+				name: 'options',
+				type: 'collection',
+				displayOptions: {
+					show: {
+						operation: ['get'],
+					},
+				},
+				placeholder: 'Add option',
+				default: {},
+				options: [
+					{
+						displayName: 'Dot Notation',
+						name: 'dotNotation',
+						type: 'boolean',
+						default: true,
+						// eslint-disable-next-line n8n-nodes-base/node-param-description-boolean-without-whether
+						description:
+							'<p>By default, dot-notation is used in property names. This means that "a.b" will set the property "b" underneath "a" so { "a": { "b": value} }.<p></p>If that is not intended this can be deactivated, it will then set { "a.b": value } instead.</p>.',
+					},
+				],
+			},
+			
+			// ----------------------------------
+			//         incr
+			// ----------------------------------
+			{
+				displayName: 'Key',
+				name: 'key',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['incr'],
+					},
+				},
+				default: '',
+				required: true,
+				description: 'Name of the key to increment',
+			},
+			{
+				displayName: 'Expire',
+				name: 'expire',
+				type: 'boolean',
+				displayOptions: {
+					show: {
+						operation: ['incr'],
+					},
+				},
+				default: false,
+				description: 'Whether to set a timeout on key',
+			},
+			{
+				displayName: 'TTL',
+				name: 'ttl',
+				type: 'number',
+				typeOptions: {
+					minValue: 1,
+				},
+				displayOptions: {
+					show: {
+						operation: ['incr'],
+						expire: [true],
+					},
+				},
+				default: 60,
+				description: 'Number of seconds before key expiration',
+			},
+			
+			// ----------------------------------
+			//         JSON set
+			// ----------------------------------
+			// Key parameter for JSON.SET
+			{
+			  displayName: 'Key',
+			  name: 'key',
+			  type: 'string',
+			  displayOptions: {
+			    show: {
+			      operation: ['jsonset'],
+			    },
+			  },
+			  default: '',
+			  required: true,
+			  description: 'The Redis key to set the JSON value for',
+			},
+			
+			// Path parameter
+			{
+			  displayName: 'Path',
+			  name: 'path',
+			  type: 'string',
+			  displayOptions: {
+			    show: {
+			      operation: ['jsonset'],
+			    },
+			  },
+			  default: '$',
+			  description: 'JSONPath to specify. Default is root $ (For new keys, path must be root)',
+			},
+			
+			// Value parameter
+			{
+			  displayName: 'Value',
+			  name: 'value',
+			  type: 'string',
+			  displayOptions: {
+			    show: {
+			      operation: ['jsonset'],
+			    },
+			  },
+			  default: '',
+			  required: true,
+			  description: 'JSON value to set at the specified path (as a JSON string)',
+			},
+			
+			// Set Mode (NX/XX)
+			{
+			  displayName: 'Set Mode',
+			  name: 'setMode',
+			  type: 'options',
+			  displayOptions: {
+			    show: {
+			      operation: ['jsonset'],
+			    },
+			  },
+			  options: [
+			    {
+			      name: 'Default',
+			      value: 'default',
+			      description: 'Set value normally',
+			    },
+			    {
+			      name: 'Set If Not Exists (NX)',
+			      value: 'NX',
+			      description: 'Only set if key does not exist',
+			    },
+			    {
+			      name: 'Set If Exists (XX)',
+			      value: 'XX',
+			      description: 'Only set if key already exists',
+			    },
+			  ],
+			  default: 'default',
+			  description: 'Determines when to set the value',
+			},
+			
+			// ----------------------------------
+			//         keys
+			// ----------------------------------
+			{
+				displayName: 'Key Pattern',
+				name: 'keyPattern',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['keys'],
+					},
+				},
+				default: '',
+				required: true,
+				description: 'The key pattern for the keys to return',
+			},
+			{
+				displayName: 'Get Values',
+				name: 'getValues',
+				type: 'boolean',
+				displayOptions: {
+					show: {
+						operation: ['keys'],
+					},
+				},
+				default: true,
+				description: 'Whether to get the value of matching keys',
+			},
+			
+			// ----------------------------------
+			//         set
+			// ----------------------------------
+			{
+				displayName: 'Key',
+				name: 'key',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['set'],
+					},
+				},
+				default: '',
+				required: true,
+				description: 'Name of the key to set in Redis',
+			},
+			{
+				displayName: 'Value',
+				name: 'value',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['set'],
+					},
+				},
+				default: '',
+				description: 'The value to write in Redis',
+			},
+			{
+				displayName: 'Key Type',
+				name: 'keyType',
+				type: 'options',
+				displayOptions: {
+					show: {
+						operation: ['set'],
+					},
+				},
+				options: [
+					{
+						name: 'Automatic',
+						value: 'automatic',
+						description: 'Tries to figure out the type automatically depending on the data',
+					},
+					{
+						name: 'Hash',
+						value: 'hash',
+						description: "Data in key is of type 'hash'",
+					},
+					{
+						name: 'List',
+						value: 'list',
+						description: "Data in key is of type 'lists'",
+					},
+					{
+						name: 'Sets',
+						value: 'sets',
+						description: "Data in key is of type 'sets'",
+					},
+					{
+						name: 'String',
+						value: 'string',
+						description: "Data in key is of type 'string'",
+					},
+				],
+				default: 'automatic',
+				description: 'The type of the key to set',
+			},
+			{
+				displayName: 'Value Is JSON',
+				name: 'valueIsJSON',
+				type: 'boolean',
+				displayOptions: {
+					show: {
+						keyType: ['hash'],
+					},
+				},
+				default: true,
+				description: 'Whether the value is JSON or key value pairs',
+			},
+			{
+				displayName: 'Expire',
+				name: 'expire',
+				type: 'boolean',
+				displayOptions: {
+					show: {
+						operation: ['set'],
+					},
+				},
+				default: false,
+				description: 'Whether to set a timeout on key',
+			},
 
-      // ----------------------------------
-      //         incr
-      // ----------------------------------
-      {
-        displayName: "Key",
-        name: "key",
-        type: "string",
-        displayOptions: {
-          show: {
-            operation: ["incr"],
-          },
-        },
-        default: "",
-        required: true,
-        description: "Name of the key to increment",
-      },
-      {
-        displayName: "Expire",
-        name: "expire",
-        type: "boolean",
-        displayOptions: {
-          show: {
-            operation: ["incr"],
-          },
-        },
-        default: false,
-        description: "Whether to set a timeout on key",
-      },
-      {
-        displayName: "TTL",
-        name: "ttl",
-        type: "number",
-        typeOptions: {
-          minValue: 1,
-        },
-        displayOptions: {
-          show: {
-            operation: ["incr"],
-            expire: [true],
-          },
-        },
-        default: 60,
-        description: "Number of seconds before key expiration",
-      },
-
-      // ----------------------------------
-      //         keys
-      // ----------------------------------
-      {
-        displayName: "Key Pattern",
-        name: "keyPattern",
-        type: "string",
-        displayOptions: {
-          show: {
-            operation: ["keys"],
-          },
-        },
-        default: "",
-        required: true,
-        description: "The key pattern for the keys to return",
-      },
-      {
-        displayName: "Get Values",
-        name: "getValues",
-        type: "boolean",
-        displayOptions: {
-          show: {
-            operation: ["keys"],
-          },
-        },
-        default: true,
-        description: "Whether to get the value of matching keys",
-      },
-      // ----------------------------------
-      //         set
-      // ----------------------------------
-      {
-        displayName: "Key",
-        name: "key",
-        type: "string",
-        displayOptions: {
-          show: {
-            operation: ["set"],
-          },
-        },
-        default: "",
-        required: true,
-        description: "Name of the key to set in Redis",
-      },
-      {
-        displayName: "Value",
-        name: "value",
-        type: "string",
-        displayOptions: {
-          show: {
-            operation: ["set"],
-          },
-        },
-        default: "",
-        description: "The value to write in Redis",
-      },
-      {
-        displayName: "Key Type",
-        name: "keyType",
-        type: "options",
-        displayOptions: {
-          show: {
-            operation: ["set"],
-          },
-        },
-        options: [
-          {
-            name: "Automatic",
-            value: "automatic",
-            description:
-              "Tries to figure out the type automatically depending on the data",
-          },
-          {
-            name: "Hash",
-            value: "hash",
-            description: "Data in key is of type 'hash'",
-          },
-          {
-            name: "List",
-            value: "list",
-            description: "Data in key is of type 'lists'",
-          },
-          {
-            name: "Sets",
-            value: "sets",
-            description: "Data in key is of type 'sets'",
-          },
-          {
-            name: "String",
-            value: "string",
-            description: "Data in key is of type 'string'",
-          },
-        ],
-        default: "automatic",
-        description: "The type of the key to set",
-      },
-      {
-        displayName: "Value Is JSON",
-        name: "valueIsJSON",
-        type: "boolean",
-        displayOptions: {
-          show: {
-            keyType: ["hash"],
-          },
-        },
-        default: true,
-        description: "Whether the value is JSON or key value pairs",
-      },
-      {
-        displayName: "Expire",
-        name: "expire",
-        type: "boolean",
-        displayOptions: {
-          show: {
-            operation: ["set"],
-          },
-        },
-        default: false,
-        description: "Whether to set a timeout on key",
-      },
-
-      {
-        displayName: "TTL",
-        name: "ttl",
-        type: "number",
-        typeOptions: {
-          minValue: 1,
-        },
-        displayOptions: {
-          show: {
-            operation: ["set"],
-            expire: [true],
-          },
-        },
-        default: 60,
-        description: "Number of seconds before key expiration",
-      },
-      {
-        displayName: "Set Mode",
-        name: "setMode",
-        type: "options",
-        displayOptions: {
-          show: {
-            operation: ["set"],
-            keyType: ["string", "automatic"],
-          },
-        },
-        options: [
-          {
-            name: "Always Set",
-            value: "always",
-            description:
-              "Set the key regardless of whether it exists (default Redis SET behavior)",
-          },
-          {
-            name: "Set If Not Exists (NX)",
-            value: "nx",
-            description:
-              "Only set the key if it does not exist (atomic lock behavior)",
-          },
-          {
-            name: "Set If Exists (XX)",
-            value: "xx",
-            description: "Only set the key if it already exists",
-          },
-        ],
-        default: "always",
-        description:
-          "Controls when the key should be set - useful for atomic locks and conditional updates",
-      },
-      // ----------------------------------
-      //         JSON set
-      // ----------------------------------
-      {
-        displayName: "Key",
-        name: "key",
-        type: "string",
-        displayOptions: {
-          show: {
-            operation: ["json.set"],
-          },
-        },
-        default: "",
-        required: true,
-        description: "Name of the key to JSON set in Redis",
-      },
-      {
-        displayName: "Value",
-        name: "value",
-        type: "string",
-        displayOptions: {
-          show: {
-            operation: ["json.set"],
-          },
-        },
-        default: "",
-        description: "The value to write in Redis",
-      },
-      {
-        displayName: "Expire",
-        name: "expire",
-        type: "boolean",
-        displayOptions: {
-          show: {
-            operation: ["json.set"],
-          },
-        },
-        default: false,
-        description: "Whether to set a timeout on key",
-      },
+			{
+				displayName: 'TTL',
+				name: 'ttl',
+				type: 'number',
+				typeOptions: {
+					minValue: 1,
+				},
+				displayOptions: {
+					show: {
+						operation: ['set'],
+						expire: [true],
+					},
+				},
+				default: 60,
+				description: 'Number of seconds before key expiration',
+			},
+			{
+				displayName: 'Set Mode',
+				name: 'setMode',
+				type: 'options',
+				displayOptions: {
+					show: {
+						operation: ['set'],
+						keyType: ['string', 'automatic'],
+					},
+				},
+				options: [
+					{
+						name: 'Always Set',
+						value: 'always',
+						description: 'Set the key regardless of whether it exists (default Redis SET behavior)',
+					},
+					{
+						name: 'Set If Not Exists (NX)',
+						value: 'nx',
+						description: 'Only set the key if it does not exist (atomic lock behavior)',
+					},
+					{
+						name: 'Set If Exists (XX)',
+						value: 'xx',
+						description: 'Only set the key if it already exists',
+					},
+				],
+				default: 'always',
+				description: 'Controls when the key should be set - useful for atomic locks and conditional updates',
+			},
+			
+			// ----------------------------------
+			//         publish
+			// ----------------------------------
+			{
+				displayName: 'Channel',
+				name: 'channel',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['publish'],
+					},
+				},
+				default: '',
+				required: true,
+				description: 'Channel name',
+			},
+			{
+				displayName: 'Data',
+				name: 'messageData',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['publish'],
+					},
+				},
+				default: '',
+				required: true,
+				description: 'Data to publish',
+			},
+			
+			// ----------------------------------
+			//         push/pop
+			// ----------------------------------
+			{
+				displayName: 'List',
+				name: 'list',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['push', 'pop'],
+					},
+				},
+				default: '',
+				required: true,
+				description: 'Name of the list in Redis',
+			},
+			{
+				displayName: 'Data',
+				name: 'messageData',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['push'],
+					},
+				},
+				default: '',
+				required: true,
+				description: 'Data to push',
+			},
+			{
+				displayName: 'Tail',
+				name: 'tail',
+				type: 'boolean',
+				displayOptions: {
+					show: {
+						operation: ['push', 'pop'],
+					},
+				},
+				default: false,
+				description: 'Whether to push or pop data from the end of the list',
+			},
+			{
+				displayName: 'Name',
+				name: 'propertyName',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['pop'],
+					},
+				},
+				default: 'propertyName',
+				description:
+					'Optional name of the property to write received data to. Supports dot-notation. Example: "data.person[0].name".',
+			},
+			{
+				displayName: 'Options',
+				name: 'options',
+				type: 'collection',
+				displayOptions: {
+					show: {
+						operation: ['pop'],
+					},
+				},
+				placeholder: 'Add option',
+				default: {},
+				options: [
+					{
+						displayName: 'Dot Notation',
+						name: 'dotNotation',
+						type: 'boolean',
+						default: true,
+						// eslint-disable-next-line n8n-nodes-base/node-param-description-boolean-without-whether
+						description:
+							'<p>By default, dot-notation is used in property names. This means that "a.b" will set the property "b" underneath "a" so { "a": { "b": value} }.<p></p>If that is not intended this can be deactivated, it will then set { "a.b": value } instead.</p>.',
+					},
+				],
+			},
 
       {
         displayName: "TTL",
@@ -1262,62 +1403,33 @@ export class RedisEnhanced implements INodeType {
     const operation = this.getNodeParameter("operation", 0);
     const returnItems: INodeExecutionData[] = [];
 
-    if (operation === "info") {
-      try {
-        const result = await client.info();
-        returnItems.push({ json: convertInfoToObject(result) });
-      } catch (error) {
-        if (this.continueOnFail()) {
-          returnItems.push({
-            json: {
-              error: error.message,
-            },
-          });
-        } else {
-          await client.quit();
-          throw new NodeOperationError(this.getNode(), error);
-        }
-      }
-    } else if (
-      [
-        "delete",
-        "get",
-        "keys",
-        "set",
-        "json.set",
-        "incr",
-        "publish",
-        "push",
-        "pop",
-        "exists",
-        "mget",
-        "mset",
-        "scan",
-        "ttl",
-        "persist",
-        "expireat",
-        "getset",
-        "append",
-        "strlen",
-        "blpop",
-        "brpop",
-        "llen",
-        "sadd",
-        "srem",
-        "sismember",
-        "scard",
-        "zadd",
-        "zrange",
-        "zrem",
-        "zcard",
-        "hlen",
-        "hkeys",
-        "hvals",
-        "hexists",
-        "eval",
-      ].includes(operation)
-    ) {
-      const items = this.getInputData();
+		if (operation === 'info') {
+			try {
+				const result = await client.info();
+				returnItems.push({ json: convertInfoToObject(result) });
+			} catch (error) {
+				if (this.continueOnFail()) {
+					returnItems.push({
+						json: {
+							error: error.message,
+						},
+					});
+				} else {
+					await client.quit();
+					throw new NodeOperationError(this.getNode(), error);
+				}
+			}
+		} else if (
+			[
+				'delete', 'get', 'jsonset', 'keys', 'set', 'incr', 'publish', 'push', 'pop',
+				'exists', 'mget', 'mset', 'scan', 'ttl', 'persist', 'expireat',
+				'getset', 'append', 'strlen', 'blpop', 'brpop', 'llen',
+				'sadd', 'srem', 'sismember', 'scard',
+				'zadd', 'zrange', 'zrem', 'zcard',
+				'hlen', 'hkeys', 'hvals', 'hexists', 'eval'
+			].includes(operation)
+		) {
+			const items = this.getInputData();
 
       let item: INodeExecutionData;
       for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
@@ -1350,17 +1462,66 @@ export class RedisEnhanced implements INodeType {
               set(item.json, propertyName, value);
             }
 
-            returnItems.push(item);
-          } else if (operation === "keys") {
-            const keyPattern = this.getNodeParameter(
-              "keyPattern",
-              itemIndex
-            ) as string;
-            const getValues = this.getNodeParameter(
-              "getValues",
-              itemIndex,
-              true
-            ) as boolean;
+						returnItems.push(item);
+					} else if (operation === 'jsonset') {
+					  for (let i = 0; i < items.length; i++) {
+					    try {
+					      const key = this.getNodeParameter('key', i) as string;
+					      const path = this.getNodeParameter('path', i, '$') as string;
+					      const value = this.getNodeParameter('value', i) as string;
+					      const setMode = this.getNodeParameter('setMode', i, 'default') as string;
+					
+					      // Validate JSON value
+					      let jsonValue: any;
+					      try {
+					        jsonValue = JSON.parse(value);
+					      } catch (error) {
+					        throw new NodeOperationError(
+					          this.getNode(),
+					          `Invalid JSON value: ${error.message}`,
+					          { itemIndex: i }
+					        );
+					      }
+					
+					      // Build the command arguments
+					      const args: any[] = [key, path, JSON.stringify(jsonValue)];
+					      
+					      // Add NX or XX flag if specified
+					      if (setMode === 'NX') {
+					        args.push('NX');
+					      } else if (setMode === 'XX') {
+					        args.push('XX');
+					      }
+					
+					      // Execute JSON.SET command
+					      const result = await client.sendCommand(['JSON.SET', ...args]);
+					
+					      returnItems.push({
+					        json: {
+					          key,
+					          path,
+					          result: result || 'OK',
+					          success: result !== null,
+					        },
+					        pairedItem: { item: i },
+					      });
+					    } catch (error) {
+					      if (this.continueOnFail()) {
+					        returnItems.push({
+					          json: {
+					            error: error.message,
+					          },
+					          pairedItem: { item: i },
+					        });
+					      } else {
+					        await client.quit();
+					        throw new NodeOperationError(this.getNode(), error, { itemIndex: i });
+					      }
+					    }
+					  }
+					} else if (operation === 'keys') {
+						const keyPattern = this.getNodeParameter('keyPattern', itemIndex) as string;
+						const getValues = this.getNodeParameter('getValues', itemIndex, true) as boolean;
 
             const keys = await client.keys(keyPattern);
 
