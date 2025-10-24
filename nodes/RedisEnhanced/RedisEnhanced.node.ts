@@ -135,6 +135,12 @@ export class RedisEnhanced implements INodeType {
 						action: 'Return generic information about the redis instance',
 					},
 					{
+					  name: 'JSON Set',
+					  value: 'jsonSet',
+					  description: 'Set the JSON value of a key in redis',
+					  action: 'Set the JSON value of a key in redis'
+					},
+					{
 						name: 'Keys',
 						value: 'keys',
 						description: 'Returns all the keys matching a pattern',
@@ -368,7 +374,7 @@ export class RedisEnhanced implements INodeType {
 					},
 				],
 			},
-
+			
 			// ----------------------------------
 			//         incr
 			// ----------------------------------
@@ -413,7 +419,85 @@ export class RedisEnhanced implements INodeType {
 				default: 60,
 				description: 'Number of seconds before key expiration',
 			},
-
+			
+			// ----------------------------------
+			//         JSON set
+			// ----------------------------------
+			// Key parameter for JSON.SET
+			{
+			  displayName: 'Key',
+			  name: 'key',
+			  type: 'string',
+			  displayOptions: {
+			    show: {
+			      operation: ['jsonSet'],
+			    },
+			  },
+			  default: '',
+			  required: true,
+			  description: 'The Redis key to set the JSON value for',
+			},
+			
+			// Path parameter
+			{
+			  displayName: 'Path',
+			  name: 'path',
+			  type: 'string',
+			  displayOptions: {
+			    show: {
+			      operation: ['jsonSet'],
+			    },
+			  },
+			  default: '$',
+			  description: 'JSONPath to specify. Default is root $ (For new keys, path must be root)',
+			},
+			
+			// Value parameter
+			{
+			  displayName: 'Value',
+			  name: 'value',
+			  type: 'string',
+			  displayOptions: {
+			    show: {
+			      operation: ['jsonSet'],
+			    },
+			  },
+			  default: '',
+			  required: true,
+			  description: 'JSON value to set at the specified path (as a JSON string)',
+			},
+			
+			// Set Mode (NX/XX)
+			{
+			  displayName: 'Set Mode',
+			  name: 'setMode',
+			  type: 'options',
+			  displayOptions: {
+			    show: {
+			      operation: ['jsonSet'],
+			    },
+			  },
+			  options: [
+			    {
+			      name: 'Default',
+			      value: 'default',
+			      description: 'Set value normally',
+			    },
+			    {
+			      name: 'Set If Not Exists (NX)',
+			      value: 'NX',
+			      description: 'Only set if key does not exist',
+			    },
+			    {
+			      name: 'Set If Exists (XX)',
+			      value: 'XX',
+			      description: 'Only set if key already exists',
+			    },
+			  ],
+			  default: 'default',
+			  description: 'Determines when to set the value',
+			},
+			
 			// ----------------------------------
 			//         keys
 			// ----------------------------------
@@ -442,6 +526,7 @@ export class RedisEnhanced implements INodeType {
 				default: true,
 				description: 'Whether to get the value of matching keys',
 			},
+			
 			// ----------------------------------
 			//         set
 			// ----------------------------------
@@ -580,6 +665,7 @@ export class RedisEnhanced implements INodeType {
 				default: 'always',
 				description: 'Controls when the key should be set - useful for atomic locks and conditional updates',
 			},
+			
 			// ----------------------------------
 			//         publish
 			// ----------------------------------
@@ -609,6 +695,7 @@ export class RedisEnhanced implements INodeType {
 				required: true,
 				description: 'Data to publish',
 			},
+			
 			// ----------------------------------
 			//         push/pop
 			// ----------------------------------
@@ -1161,7 +1248,7 @@ export class RedisEnhanced implements INodeType {
 			}
 		} else if (
 			[
-				'delete', 'get', 'keys', 'set', 'incr', 'publish', 'push', 'pop',
+				'delete', 'get', 'jsonset', 'keys', 'set', 'incr', 'publish', 'push', 'pop',
 				'exists', 'mget', 'mset', 'scan', 'ttl', 'persist', 'expireat',
 				'getset', 'append', 'strlen', 'blpop', 'brpop', 'llen',
 				'sadd', 'srem', 'sismember', 'scard',
@@ -1197,6 +1284,62 @@ export class RedisEnhanced implements INodeType {
 						}
 
 						returnItems.push(item);
+					} else if (operation === 'jsonSet') {
+					  for (let i = 0; i < items.length; i++) {
+					    try {
+					      const key = this.getNodeParameter('key', i) as string;
+					      const path = this.getNodeParameter('path', i, '$') as string;
+					      const value = this.getNodeParameter('value', i) as string;
+					      const setMode = this.getNodeParameter('setMode', i, 'default') as string;
+					
+					      // Validate JSON value
+					      let jsonValue: any;
+					      try {
+					        jsonValue = JSON.parse(value);
+					      } catch (error) {
+					        throw new NodeOperationError(
+					          this.getNode(),
+					          `Invalid JSON value: ${error.message}`,
+					          { itemIndex: i }
+					        );
+					      }
+					
+					      // Build the command arguments
+					      const args: any[] = [key, path, JSON.stringify(jsonValue)];
+					      
+					      // Add NX or XX flag if specified
+					      if (setMode === 'NX') {
+					        args.push('NX');
+					      } else if (setMode === 'XX') {
+					        args.push('XX');
+					      }
+					
+					      // Execute JSON.SET command
+					      const result = await client.sendCommand(['JSON.SET', ...args]);
+					
+					      returnItems.push({
+					        json: {
+					          key,
+					          path,
+					          result: result || 'OK',
+					          success: result !== null,
+					        },
+					        pairedItem: { item: i },
+					      });
+					    } catch (error) {
+					      if (this.continueOnFail()) {
+					        returnItems.push({
+					          json: {
+					            error: error.message,
+					          },
+					          pairedItem: { item: i },
+					        });
+					      } else {
+					        await client.quit();
+					        throw new NodeOperationError(this.getNode(), error, { itemIndex: i });
+					      }
+					    }
+					  }
 					} else if (operation === 'keys') {
 						const keyPattern = this.getNodeParameter('keyPattern', itemIndex) as string;
 						const getValues = this.getNodeParameter('getValues', itemIndex, true) as boolean;
