@@ -1,6 +1,6 @@
 {
-  "name": "@vicenterusso/n8n-nodes-redis-enhanced",
-  "version": "0.1.6",
+  "name": "@franknitty69/n8n-nodes-redis-enhanced",
+  "version": "0.0.1",
   "description": "Enhanced Redis node for n8n with comprehensive operations including pub/sub, lists, sets, hashes, and TTL support",
   "keywords": [
     "n8n-community-node-package",
@@ -13,12 +13,12 @@
   "license": "MIT",
   "homepage": "",
   "author": {
-    "name": "Vicente Russo Neto",
-    "email": "vicente.russo@gmail.com"
+    "name": "Ahmed Agbabiaka",
+    "email": "franknitty69@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vicenterusso/n8n-nodes-redis-enhanced.git"
+    "url": "https://github.com/franknitty69/n8n-nodes-redis-enhanced.git"
   },
   "engines": {
     "node": ">=20.15"
