@@ -136,7 +136,7 @@ export class RedisEnhanced implements INodeType {
 					},
 					{
 					  name: 'JSON Set',
-					  value: 'jsonSet',
+					  value: 'jsonset',
 					  description: 'Set the JSON value of a key in redis',
 					  action: 'Set the JSON value of a key in redis'
 					},
@@ -430,7 +430,7 @@ export class RedisEnhanced implements INodeType {
 			  type: 'string',
 			  displayOptions: {
 			    show: {
-			      operation: ['jsonSet'],
+			      operation: ['jsonset'],
 			    },
 			  },
 			  default: '',
@@ -445,7 +445,7 @@ export class RedisEnhanced implements INodeType {
 			  type: 'string',
 			  displayOptions: {
 			    show: {
-			      operation: ['jsonSet'],
+			      operation: ['jsonset'],
 			    },
 			  },
 			  default: '$',
@@ -459,7 +459,7 @@ export class RedisEnhanced implements INodeType {
 			  type: 'string',
 			  displayOptions: {
 			    show: {
-			      operation: ['jsonSet'],
+			      operation: ['jsonset'],
 			    },
 			  },
 			  default: '',
@@ -474,7 +474,7 @@ export class RedisEnhanced implements INodeType {
 			  type: 'options',
 			  displayOptions: {
 			    show: {
-			      operation: ['jsonSet'],
+			      operation: ['jsonset'],
 			    },
 			  },
 			  options: [
@@ -1284,7 +1284,7 @@ export class RedisEnhanced implements INodeType {
 						}
 
 						returnItems.push(item);
-					} else if (operation === 'jsonSet') {
+					} else if (operation === 'jsonset') {
 					  for (let i = 0; i < items.length; i++) {
 					    try {
 					      const key = this.getNodeParameter('key', i) as string;
