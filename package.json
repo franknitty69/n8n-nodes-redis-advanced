@@ -1,6 +1,6 @@
 {
 	"name": "@franknitty69/n8n-nodes-redis-advanced",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "Advanced Redis node for n8n with comprehensive operations including json, pub/sub, lists, sets, hashes, and TTL support",
 	"keywords": [
 		"n8n-community-node-package",
