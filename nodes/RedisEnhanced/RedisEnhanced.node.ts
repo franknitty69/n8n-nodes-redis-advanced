@@ -19,7 +19,7 @@ import {
 export class RedisEnhanced implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Redis Enhanced',
-		name: 'redisEnhancedWithJson',
+		name: 'redisEnhanced',
 		icon: 'file:redisEnhanced.svg',
 		group: ['input'],
 		version: 1,
