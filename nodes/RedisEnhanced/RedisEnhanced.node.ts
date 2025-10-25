@@ -18,14 +18,14 @@ import {
 
 export class RedisEnhanced implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Redis Enhanced',
-		name: 'redisEnhanced',
+		displayName: 'Redis Enhanced With JSON',
+		name: 'redisEnhancedWithJson',
 		icon: 'file:redisEnhanced.svg',
 		group: ['input'],
 		version: 1,
 		description: 'Get, send and update data in Redis with enhanced operations',
 		defaults: {
-			name: 'Redis Enhanced',
+			name: 'Redis Enhanced JSON',
 		},
 		inputs: [NodeConnectionType.Main],
 		outputs: [NodeConnectionType.Main],

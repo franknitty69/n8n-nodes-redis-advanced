@@ -1,77 +1,77 @@
 {
-  "name": "@franknitty69/n8n-nodes-redis-enhanced",
-  "version": "0.0.1",
-  "description": "Enhanced Redis node for n8n with comprehensive operations including pub/sub, lists, sets, hashes, and TTL support",
-  "keywords": [
-    "n8n-community-node-package",
-    "redis",
-    "database",
-    "cache",
-    "pub-sub",
-    "key-value"
-  ],
-  "license": "MIT",
-  "homepage": "",
-  "author": {
-    "name": "Ahmed Agbabiaka",
-    "email": "franknitty69@gmail.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/franknitty69/n8n-nodes-redis-enhanced.git"
-  },
-  "engines": {
-    "node": ">=20.15"
-  },
-  "main": "index.js",
-  "scripts": {
-    "build": "npx rimraf dist && tsc && gulp build:icons",
-    "dev": "tsc --watch",
-    "format": "prettier nodes credentials --write",
-    "lint": "eslint nodes credentials package.json",
-    "lintfix": "eslint nodes credentials package.json --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js nodes credentials package.json && npm test"
-  },
-  "files": [
-    "dist/**/*",
-    "!dist/**/*.test.*",
-    "!dist/**/__tests__/**",
-    "!dist/**/*.tsbuildinfo",
-    "index.js"
-  ],
-  "n8n": {
-    "n8nNodesApiVersion": 1,
-    "credentials": [
-      "dist/credentials/Redis.credentials.js"
-    ],
-    "nodes": [
-      "dist/nodes/RedisEnhanced/RedisEnhanced.node.js"
-    ]
-  },
-  "devDependencies": {
-    "@jest/types": "^30.0.1",
-    "@types/jest": "^30.0.0",
-    "@typescript-eslint/parser": "~8.32.0",
-    "eslint": "^8.57.0",
-    "eslint-plugin-n8n-nodes-base": "^1.16.3",
-    "gulp": "^5.0.0",
-    "jest": "^30.0.4",
-    "jest-mock-extended": "^4.0.0",
-    "prettier": "^3.5.3",
-    "redis-mock": "^0.56.3",
-    "ts-jest": "^29.4.0",
-    "typescript": "^5.8.2"
-  },
-  "peerDependencies": {
-    "n8n-workflow": "*"
-  },
-  "dependencies": {
-    "@types/lodash": "^4.17.20",
-    "@types/redis": "^4.0.11",
-    "lodash": "4.17.21",
-    "redis": "4.6.14"
-  }
+	"name": "@franknitty69/n8n-nodes-redis-enhanced",
+	"version": "0.0.2",
+	"description": "Enhanced Redis node for n8n with comprehensive operations including pub/sub, lists, sets, hashes, and TTL support",
+	"keywords": [
+		"n8n-community-node-package",
+		"redis",
+		"database",
+		"cache",
+		"pub-sub",
+		"key-value"
+	],
+	"license": "MIT",
+	"homepage": "",
+	"author": {
+		"name": "Ahmed Agbabiaka",
+		"email": "franknitty69@gmail.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/franknitty69/n8n-nodes-redis-enhanced.git"
+	},
+	"engines": {
+		"node": ">=20.15"
+	},
+	"main": "index.js",
+	"scripts": {
+		"build": "npx rimraf dist && tsc && gulp build:icons",
+		"dev": "tsc --watch",
+		"format": "prettier nodes credentials --write",
+		"lint": "eslint nodes credentials package.json",
+		"lintfix": "eslint nodes credentials package.json --fix",
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:coverage": "jest --coverage",
+		"prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js nodes credentials package.json && npm test"
+	},
+	"files": [
+		"dist/**/*",
+		"!dist/**/*.test.*",
+		"!dist/**/__tests__/**",
+		"!dist/**/*.tsbuildinfo",
+		"index.js"
+	],
+	"n8n": {
+		"n8nNodesApiVersion": 1,
+		"credentials": [
+			"dist/credentials/Redis.credentials.js"
+		],
+		"nodes": [
+			"dist/nodes/RedisEnhanced/RedisEnhanced.node.js"
+		]
+	},
+	"devDependencies": {
+		"@jest/types": "^30.0.1",
+		"@types/jest": "^30.0.0",
+		"@typescript-eslint/parser": "~8.32.0",
+		"eslint": "^8.57.0",
+		"eslint-plugin-n8n-nodes-base": "^1.16.3",
+		"gulp": "^5.0.0",
+		"jest": "^30.0.4",
+		"jest-mock-extended": "^4.0.0",
+		"prettier": "^3.5.3",
+		"redis-mock": "^0.56.3",
+		"ts-jest": "^29.4.0",
+		"typescript": "^5.8.2"
+	},
+	"peerDependencies": {
+		"n8n-workflow": "*"
+	},
+	"dependencies": {
+		"@types/lodash": "^4.17.20",
+		"@types/redis": "^4.0.11",
+		"lodash": "4.17.21",
+		"redis": "4.6.14"
+	}
 }
