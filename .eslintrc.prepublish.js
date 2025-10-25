@@ -2,7 +2,7 @@
  * @type {import('@types/eslint').ESLint.ConfigData}
  */
 module.exports = {
-	extends: "./.eslintrc.js",
+	extends: './.eslintrc.js',
 
 	overrides: [
 		{
@@ -10,6 +10,7 @@ module.exports = {
 			plugins: ['eslint-plugin-n8n-nodes-base'],
 			rules: {
 				'n8n-nodes-base/community-package-json-name-still-default': 'error',
+				'n8n-nodes-base/node-filename-against-convention': 'off',
 			},
 		},
 	],
