@@ -144,7 +144,7 @@ export class RedisEnhanced implements INodeType {
 						name: 'JSON Get',
 						value: 'jsonget',
 						description: 'Get the JSON value of a key in redis',
-						action: 'Ge the JSON value of a key in redis',
+						action: 'Get the JSON value of a key in redis',
 					},
 					{
 						name: 'Keys',
