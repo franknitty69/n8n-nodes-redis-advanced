@@ -157,6 +157,8 @@ describe('RedisEnhanced Node', () => {
 			expect(operationValues).toContain('hvals');
 			expect(operationValues).toContain('incr');
 			expect(operationValues).toContain('info');
+			expect(operationValues).toContain('jsonget');
+			expect(operationValues).toContain('jsonset');
 			expect(operationValues).toContain('keys');
 			expect(operationValues).toContain('llen');
 			expect(operationValues).toContain('mget');
@@ -179,7 +181,7 @@ describe('RedisEnhanced Node', () => {
 			expect(operationValues).toContain('zrem');
 
 			// Verify total operations count
-			expect(operationValues).toHaveLength(35);
+			expect(operationValues).toHaveLength(37);
 		});
 
 		it('should have Redis credentials configured', () => {
@@ -415,9 +417,9 @@ master_failover_state:no-failover
 
 				const output = await node.execute.call(thisArg);
 				expect(mockClient.set).toHaveBeenCalledWith('key1', 'value1');
-				expect(output[0][0].json).toEqual({ 
-					x: 1, 
-					redis_result: { success: true, operation: 'SET ALWAYS', key: 'key1' }
+				expect(output[0][0].json).toEqual({
+					x: 1,
+					redis_result: { success: true, operation: 'SET ALWAYS', key: 'key1' },
 				});
 			});
 
@@ -428,9 +430,9 @@ master_failover_state:no-failover
 
 				const output = await node.execute.call(thisArg);
 				expect(mockClient.set).toHaveBeenCalledWith('key1', 'value1', { EX: 300 });
-				expect(output[0][0].json).toEqual({ 
-					x: 1, 
-					redis_result: { success: true, operation: 'SET ALWAYS', key: 'key1' }
+				expect(output[0][0].json).toEqual({
+					x: 1,
+					redis_result: { success: true, operation: 'SET ALWAYS', key: 'key1' },
 				});
 			});
 
@@ -440,9 +442,9 @@ master_failover_state:no-failover
 
 				const output = await node.execute.call(thisArg);
 				expect(mockClient.set).toHaveBeenCalledWith('key1', 'value1', { NX: true });
-				expect(output[0][0].json).toEqual({ 
-					x: 1, 
-					redis_result: { success: true, operation: 'SET NX', key: 'key1' }
+				expect(output[0][0].json).toEqual({
+					x: 1,
+					redis_result: { success: true, operation: 'SET NX', key: 'key1' },
 				});
 			});
 
@@ -452,9 +454,9 @@ master_failover_state:no-failover
 
 				const output = await node.execute.call(thisArg);
 				expect(mockClient.set).toHaveBeenCalledWith('key1', 'value1', { XX: true });
-				expect(output[0][0].json).toEqual({ 
-					x: 1, 
-					redis_result: { success: true, operation: 'SET XX', key: 'key1' }
+				expect(output[0][0].json).toEqual({
+					x: 1,
+					redis_result: { success: true, operation: 'SET XX', key: 'key1' },
 				});
 			});
 
@@ -464,15 +466,15 @@ master_failover_state:no-failover
 
 				const output = await node.execute.call(thisArg);
 				expect(mockClient.set).toHaveBeenCalledWith('key1', 'value1', { NX: true });
-				expect(output[0][0].json).toEqual({ 
-					x: 1, 
-					redis_result: { 
-						success: false, 
-						operation: 'SET NX', 
+				expect(output[0][0].json).toEqual({
+					x: 1,
+					redis_result: {
+						success: false,
+						operation: 'SET NX',
 						key: 'key1',
 						reason: 'key_already_exists',
-						message: 'SET NX condition not met: key "key1" already exists'
-					}
+						message: 'SET NX condition not met: key "key1" already exists',
+					},
 				});
 			});
 
@@ -482,15 +484,15 @@ master_failover_state:no-failover
 
 				const output = await node.execute.call(thisArg);
 				expect(mockClient.set).toHaveBeenCalledWith('key1', 'value1', { XX: true });
-				expect(output[0][0].json).toEqual({ 
-					x: 1, 
-					redis_result: { 
-						success: false, 
-						operation: 'SET XX', 
+				expect(output[0][0].json).toEqual({
+					x: 1,
+					redis_result: {
+						success: false,
+						operation: 'SET XX',
 						key: 'key1',
 						reason: 'key_does_not_exist',
-						message: 'SET XX condition not met: key "key1" does not exist'
-					}
+						message: 'SET XX condition not met: key "key1" does not exist',
+					},
 				});
 			});
 		});
@@ -500,10 +502,10 @@ master_failover_state:no-failover
 				thisArg.getInputData.mockReturnValue([{ json: { x: 1 } }]);
 				thisArg.getNodeParameter.calledWith('operation', 0).mockReturnValue('exists');
 				thisArg.getNodeParameter.calledWith('keys', 0).mockReturnValue('key1 key2 key3');
-			mockClient.exists.mockResolvedValue(2);
+				mockClient.exists.mockResolvedValue(2);
 
 				const output = await node.execute.call(thisArg);
-			expect(mockClient.exists).toHaveBeenCalledWith(['key1', 'key2', 'key3']);
+				expect(mockClient.exists).toHaveBeenCalledWith(['key1', 'key2', 'key3']);
 				expect(output[0][0].json).toEqual({ exists: 2, keys: ['key1', 'key2', 'key3'] });
 			});
 		});
@@ -513,23 +515,25 @@ master_failover_state:no-failover
 				thisArg.getInputData.mockReturnValue([{ json: { x: 1 } }]);
 				thisArg.getNodeParameter.calledWith('operation', 0).mockReturnValue('mget');
 				thisArg.getNodeParameter.calledWith('keys', 0).mockReturnValue('key1 key2 key3');
-			mockClient.mGet.mockResolvedValue(['value1', 'value2', null]);
+				mockClient.mGet.mockResolvedValue(['value1', 'value2', null]);
 
 				const output = await node.execute.call(thisArg);
-			expect(mockClient.mGet).toHaveBeenCalledWith(['key1', 'key2', 'key3']);
+				expect(mockClient.mGet).toHaveBeenCalledWith(['key1', 'key2', 'key3']);
 				expect(output[0][0].json).toEqual({
-				key1: 'value1',
-				key2: 'value2',
-				key3: null
+					key1: 'value1',
+					key2: 'value2',
+					key3: null,
+				});
 			});
-		});
 		});
 
 		describe('mset operation', () => {
 			it('should set multiple keys', async () => {
 				thisArg.getInputData.mockReturnValue([{ json: { x: 1 } }]);
 				thisArg.getNodeParameter.calledWith('operation', 0).mockReturnValue('mset');
-				thisArg.getNodeParameter.calledWith('keyValuePairs', 0).mockReturnValue('key1 value1 key2 value2');
+				thisArg.getNodeParameter
+					.calledWith('keyValuePairs', 0)
+					.mockReturnValue('key1 value1 key2 value2');
 				mockClient.mSet.mockResolvedValue('OK');
 
 				const output = await node.execute.call(thisArg);
@@ -543,7 +547,7 @@ master_failover_state:no-failover
 				thisArg.getNodeParameter.calledWith('keyValuePairs', 0).mockReturnValue('key1 value1 key2');
 
 				await expect(node.execute.call(thisArg)).rejects.toThrow(
-					'Key-value pairs must be even number of arguments'
+					'Key-value pairs must be even number of arguments',
 				);
 			});
 		});
@@ -558,7 +562,7 @@ master_failover_state:no-failover
 				mockClient.scan.mockResolvedValue({ cursor: '5', keys: ['user:1', 'user:2'] });
 
 				const output = await node.execute.call(thisArg);
-											expect(mockClient.scan).toHaveBeenCalledWith(0, { MATCH: 'user:*', COUNT: 10 });
+				expect(mockClient.scan).toHaveBeenCalledWith(0, { MATCH: 'user:*', COUNT: 10 });
 				expect(output[0][0].json).toEqual({ cursor: '5', keys: ['user:1', 'user:2'] });
 			});
 		});
@@ -595,7 +599,7 @@ master_failover_state:no-failover
 				thisArg.getNodeParameter.calledWith('getValues', 0).mockReturnValue(true);
 
 				mockClient.type.mockResolvedValue('string');
-			mockClient.get.mockRejectedValue(new Error('Redis error'));
+				mockClient.get.mockRejectedValue(new Error('Redis error'));
 
 				const output = await node.execute.call(thisArg);
 				expect(mockClient.get).toHaveBeenCalled();
@@ -607,14 +611,14 @@ master_failover_state:no-failover
 				thisArg.getNodeParameter.calledWith('getValues', 0).mockReturnValue(true);
 
 				mockClient.type.mockResolvedValue('string');
-			mockClient.get.mockRejectedValue(new Error('Redis error'));
+				mockClient.get.mockRejectedValue(new Error('Redis error'));
 
 				await expect(node.execute.call(thisArg)).rejects.toThrow(NodeOperationError);
 
 				expect(mockClient.get).toHaveBeenCalled();
-			expect(mockClient.quit).toHaveBeenCalled();
+				expect(mockClient.quit).toHaveBeenCalled();
+			});
 		});
-	});
 
 		// Additional operation tests would continue here...
 		// This provides the comprehensive pattern for testing all 35 operations

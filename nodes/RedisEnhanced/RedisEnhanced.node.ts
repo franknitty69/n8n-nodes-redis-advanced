@@ -135,16 +135,16 @@ export class RedisEnhanced implements INodeType {
 						action: 'Return generic information about the redis instance',
 					},
 					{
-						name: 'JSON Set',
-						value: 'jsonset',
-						description: 'Set the JSON value of a key in redis',
-						action: 'Set the JSON value of a key in redis',
-					},
-					{
 						name: 'JSON Get',
 						value: 'jsonget',
 						description: 'Get the JSON value of a key in redis',
 						action: 'Get the JSON value of a key in redis',
+					},
+					{
+						name: 'JSON Set',
+						value: 'jsonset',
+						description: 'Set the JSON value of a key in redis',
+						action: 'Set the JSON value of a key in redis',
 					},
 					{
 						name: 'Keys',
@@ -454,7 +454,7 @@ export class RedisEnhanced implements INodeType {
 					},
 				},
 				default: '$',
-				description: 'JSONPath to specify. Default is root $ (For new keys, path must be root)',
+				description: 'JSONPath to specify. Default is root $ (For new keys, path must be root).',
 			},
 
 			// Value parameter
