@@ -48,7 +48,7 @@
 			"dist/credentials/Redis.credentials.js"
 		],
 		"nodes": [
-			"dist/nodes/RedisEnhanced/RedisEnhanced.node.js"
+			"dist/nodes/RedisAdvanced/RedisAdvanced.node.js"
 		]
 	},
 	"devDependencies": {
