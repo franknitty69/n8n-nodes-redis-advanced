@@ -14,13 +14,14 @@ Redis Enhanced extends the basic Redis functionality with 35+ operations includi
 [Development](#development)  
 [Testing](#testing)  
 [Resources](#resources)  
-[Version History](#version-history)  
+[Version History](#version-history)
 
 ## Installation
 
 Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
 
 ### Quick Install
+
 1. Open your n8n instance
 2. Go to **Settings** → **Community Nodes**
 3. Enter the package name: `@vicenterusso/n8n-nodes-redis-enhanced`
@@ -28,6 +29,7 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 5. Restart n8n
 
 ### Manual Installation
+
 ```bash
 npm install @vicenterusso/n8n-nodes-redis-enhanced
 ```
@@ -37,6 +39,7 @@ npm install @vicenterusso/n8n-nodes-redis-enhanced
 Redis Enhanced provides 35 comprehensive operations organized by category:
 
 ### 🔑 **Basic Operations**
+
 - **Get** - Retrieve values from Redis with automatic type detection
 - **Set** - Store values with atomic lock support (NX/XX modes) and TTL
 - **Delete** - Remove keys from Redis
@@ -44,55 +47,66 @@ Redis Enhanced provides 35 comprehensive operations organized by category:
 - **Info** - Get Redis server information and statistics
 
 ### 📦 **Bulk Operations**
+
 - **Multi Get (MGET)** - Retrieve multiple keys in a single operation
 - **Multi Set (MSET)** - Set multiple key-value pairs atomically
 - **Scan** - Production-safe key iteration with pattern matching
 - **Keys** - Find keys matching patterns (with optional value retrieval)
 
 ### 🔢 **String Operations**
+
 - **Increment (INCR)** - Atomic counter operations with optional TTL
 - **Append** - Append values to existing strings
 - **String Length** - Get the length of string values
 - **Get Set** - Atomically set new value and return old value
 
 ### 📋 **List Operations**
+
 - **Push** - Add elements to lists (left/right)
 - **Pop** - Remove elements from lists (left/right)
 - **Blocking Pop Left (BLPOP)** - Blocking pop from list start
-- **Blocking Pop Right (BRPOP)** - Blocking pop from list end  
+- **Blocking Pop Right (BRPOP)** - Blocking pop from list end
 - **List Length** - Get the number of elements in a list
 
 ### 🎯 **Set Operations**
+
 - **Set Add (SADD)** - Add members to sets
 - **Set Remove (SREM)** - Remove members from sets
 - **Set Is Member (SISMEMBER)** - Check set membership
 - **Set Cardinality (SCARD)** - Get the number of set members
 
 #### 🎯 **JSON Operations**
+
+- **JSON Get (JSON.get)**: Retrieve JSON values from Redis with path support
 - **JSON Set (JSON.set)**: Store JSON values with atomic lock support (NX/XX modes) and TTL
 
 ### 📊 **Sorted Set Operations**
+
 - **Sorted Set Add (ZADD)** - Add scored members to sorted sets
 - **Sorted Set Range (ZRANGE)** - Get ranges with optional scores
 - **Sorted Set Remove (ZREM)** - Remove members from sorted sets
 - **Sorted Set Cardinality (ZCARD)** - Get sorted set size
 
 ### 🗂️ **Hash Operations**
+
 - **Hash Length (HLEN)** - Get number of hash fields
 - **Hash Keys (HKEYS)** - Get all field names
 - **Hash Values (HVALS)** - Get all hash values
 - **Hash Exists (HEXISTS)** - Check if hash field exists
 
 ### ⏰ **TTL Operations**
+
 - **TTL** - Get time-to-live for keys
 - **Persist** - Remove expiration from keys
 - **Expire At** - Set expiration at specific timestamp
 
 ### 🚀 **Advanced Operations**
+
 - **Eval** - Execute Lua scripts with key/argument support
 - **Publish** - Publish messages to Redis channels
 
 ### 🔒 **Enhanced Features**
+
 - **Atomic Operations** - NX (set if not exists) and XX (set if exists) modes
 - **Bulk Processing** - Space-separated input parsing for multiple keys/values
 - **Type Safety** - Automatic type detection and conversion
@@ -104,10 +118,12 @@ Redis Enhanced provides 35 comprehensive operations organized by category:
 To use Redis Enhanced, you need to set up Redis credentials in n8n:
 
 ### Prerequisites
+
 - A Redis server (local, cloud, or managed service like AWS ElastiCache, Redis Cloud, etc.)
 - Network connectivity from n8n to your Redis instance
 
 ### Authentication Setup
+
 1. In n8n, go to **Credentials** → **Create New**
 2. Search for **Redis Enhanced**
 3. Configure the connection:
@@ -119,6 +135,7 @@ To use Redis Enhanced, you need to set up Redis credentials in n8n:
    - **SSL**: Enable for TLS connections
 
 ### Supported Authentication Methods
+
 - **No Authentication** - For development/local Redis instances
 - **Password Authentication** - Traditional Redis AUTH
 - **Username/Password** - Redis 6+ ACL with user accounts
@@ -132,6 +149,7 @@ To use Redis Enhanced, you need to set up Redis credentials in n8n:
 - **Tested with**: n8n 1.x, Redis 6.x, Redis 7.x
 
 ### Known Compatibility
+
 - ✅ **n8n Cloud**: Fully compatible
 - ✅ **Self-hosted n8n**: All versions 1.0+
 - ✅ **Docker deployments**: Tested and verified
@@ -143,6 +161,7 @@ To use Redis Enhanced, you need to set up Redis credentials in n8n:
 ## Usage
 
 ### Basic Example: Caching API Responses
+
 ```yaml
 # Workflow: Cache expensive API calls
 1. HTTP Request (API call)
@@ -154,6 +173,7 @@ To use Redis Enhanced, you need to set up Redis credentials in n8n:
 ```
 
 ### Advanced Example: Atomic Counters
+
 ```yaml
 # Workflow: Rate limiting with atomic counters
 1. Redis Enhanced (SET with NX)
@@ -166,6 +186,7 @@ To use Redis Enhanced, you need to set up Redis credentials in n8n:
 ```
 
 ### Bulk Operations Example
+
 ```yaml
 # Workflow: Bulk data processing
 1. Redis Enhanced (MGET)
@@ -177,6 +198,7 @@ To use Redis Enhanced, you need to set up Redis credentials in n8n:
 ```
 
 ### Production Tips
+
 - Use **SCAN** instead of **KEYS** for production key iteration
 - Leverage **atomic operations** (NX/XX) for race condition prevention
 - Set appropriate **TTL values** for cache invalidation
@@ -186,11 +208,13 @@ To use Redis Enhanced, you need to set up Redis credentials in n8n:
 ## Development
 
 ### Prerequisites
+
 - Node.js 20.15+
 - npm or yarn
 - Redis server for testing
 
 ### Setup
+
 ```bash
 git clone https://github.com/vicenterusso/n8n-nodes-redis-enhanced.git
 cd n8n-nodes-redis-enhanced
@@ -198,6 +222,7 @@ npm install
 ```
 
 ### Build
+
 ```bash
 npm run build     # Build the node
 npm run dev       # Build in watch mode
@@ -211,11 +236,12 @@ The project includes comprehensive test coverage with 31+ tests covering all ope
 
 ```bash
 npm test              # Run all tests
-npm run test:watch    # Run tests in watch mode  
+npm run test:watch    # Run tests in watch mode
 npm run test:coverage # Run with coverage report
 ```
 
 ### Test Coverage
+
 - **31 passing tests** across all operations
 - **42.97% code coverage** with detailed branch coverage
 - **Infrastructure testing** (connection, client setup)
@@ -224,6 +250,7 @@ npm run test:coverage # Run with coverage report
 - **Parameter validation** (input validation)
 
 ### Test Categories
+
 - ✅ **Connection Tests** - Redis client setup and connectivity
 - ✅ **Basic Operations** - GET, SET, DELETE, EXISTS, INFO
 - ✅ **Bulk Operations** - MGET, MSET, SCAN, KEYS
@@ -242,6 +269,7 @@ npm run test:coverage # Run with coverage report
 ## Version History
 
 ### v0.1.0 (Current)
+
 - **Initial Release** with 35 Redis operations
 - **Comprehensive Testing** - 31 tests, 42.97% coverage
 - **Production Ready** - Atomic operations, bulk processing, error handling
@@ -249,8 +277,9 @@ npm run test:coverage # Run with coverage report
 - **Full Documentation** - Complete API coverage and examples
 
 #### Features Added:
+
 - ✅ Basic operations (GET, SET, DELETE, EXISTS, INFO)
-- ✅ Bulk operations (MGET, MSET, SCAN, KEYS)  
+- ✅ Bulk operations (MGET, MSET, SCAN, KEYS)
 - ✅ String operations (INCR, APPEND, STRLEN, GETSET)
 - ✅ List operations (PUSH, POP, BLPOP, BRPOP, LLEN)
 - ✅ Set operations (SADD, SREM, SISMEMBER, SCARD)
