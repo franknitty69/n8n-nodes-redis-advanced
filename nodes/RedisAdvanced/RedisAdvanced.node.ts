@@ -16,11 +16,11 @@ import {
 	setValue,
 } from './utils';
 
-export class RedisEnhanced implements INodeType {
+export class RedisAdvanced implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Redis Enhanced',
-		name: 'redisEnhanced',
-		icon: 'file:redisEnhanced.svg',
+		displayName: 'Redis Advanced',
+		name: 'redisAdvanced',
+		icon: 'file:redisAdvanced.svg',
 		group: ['input'],
 		version: 1,
 		description: 'Get, send and update data in Redis with enhanced operations',

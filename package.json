@@ -1,7 +1,7 @@
 {
-	"name": "@franknitty69/n8n-nodes-redis-enhanced",
+	"name": "@franknitty69/n8n-nodes-redis-advanced",
 	"version": "0.0.5",
-	"description": "Enhanced Redis node for n8n with comprehensive operations including pub/sub, lists, sets, hashes, and TTL support",
+	"description": "Advanced Redis node for n8n with comprehensive operations including json, pub/sub, lists, sets, hashes, and TTL support",
 	"keywords": [
 		"n8n-community-node-package",
 		"redis",
@@ -11,14 +11,14 @@
 		"key-value"
 	],
 	"license": "MIT",
-	"homepage": "",
+	"homepage": "https://github.com/franknitty69/n8n-nodes-redis-advanced.git",
 	"author": {
 		"name": "Ahmed Agbabiaka",
 		"email": "franknitty69@gmail.com"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/franknitty69/n8n-nodes-redis-enhanced.git"
+		"url": "https://github.com/franknitty69/n8n-nodes-redis-advanced.git"
 	},
 	"engines": {
 		"node": ">=20.15"

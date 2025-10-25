@@ -10,12 +10,12 @@ const mockClient = mock<RedisClient>();
 const createClient = jest.fn().mockReturnValue(mockClient);
 jest.mock('redis', () => ({ createClient }));
 
-import { RedisEnhanced } from '../RedisEnhanced.node';
+import { RedisAdvanced } from '../RedisAdvanced.node';
 import type { RedisClient } from '../types';
 import { redisConnectionTest, setupRedisClient } from '../utils';
 
-describe('RedisEnhanced Node', () => {
-	const node = new RedisEnhanced();
+describe('RedisAdvanced Node', () => {
+	const node = new RedisAdvanced();
 
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -131,8 +131,8 @@ describe('RedisEnhanced Node', () => {
 
 	describe('Node Definition', () => {
 		it('should have correct node properties', () => {
-			expect(node.description.displayName).toBe('Redis Enhanced');
-			expect(node.description.name).toBe('redisEnhanced');
+			expect(node.description.displayName).toBe('Redis Advanced');
+			expect(node.description.name).toBe('redisAdvanced');
 			expect(node.description.group).toContain('input');
 			expect(node.description.version).toBe(1);
 		});

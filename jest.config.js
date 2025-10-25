@@ -1,8 +1,8 @@
 module.exports = {
 	preset: 'ts-jest',
 	testEnvironment: 'node',
-	roots: ['<rootDir>/nodes/RedisEnhanced/__tests__'],
-	testMatch: ['**/nodes/RedisEnhanced/__tests__/**/*.test.ts'],
+	roots: ['<rootDir>/nodes/RedisAdvanced/__tests__'],
+	testMatch: ['**/nodes/RedisAdvanced/__tests__/**/*.test.ts'],
 	transform: {
 		'^.+\\.ts$': 'ts-jest',
 	},

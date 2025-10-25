@@ -1,8 +1,8 @@
-# n8n-nodes-redis-enhanced
+# n8n-nodes-redis-advanced
 
-This is an n8n community node that provides comprehensive Redis integration with enhanced operations for your n8n workflows.
+This is an n8n community node that provides comprehensive Redis integration with advanced operations for your n8n workflows.
 
-Redis Enhanced extends the basic Redis functionality with 35+ operations including atomic operations, bulk operations, advanced data structures (sets, sorted sets, hashes), TTL management, Lua scripting, and pub/sub capabilities.
+Redis Advanced extends the basic Redis functionality with 35+ operations including atomic operations, bulk operations, advanced data structures (sets, sorted sets, hashes), TTL management, Lua scripting, and pub/sub capabilities.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
@@ -24,19 +24,19 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 
 1. Open your n8n instance
 2. Go to **Settings** → **Community Nodes**
-3. Enter the package name: `@vicenterusso/n8n-nodes-redis-enhanced`
+3. Enter the package name: `@franknitty69/n8n-nodes-redis-advanced`
 4. Click **Install**
 5. Restart n8n
 
 ### Manual Installation
 
 ```bash
-npm install @vicenterusso/n8n-nodes-redis-enhanced
+npm install @franknitty69/n8n-nodes-redis-advanced
 ```
 
 ## Operations
 
-Redis Enhanced provides 35 comprehensive operations organized by category:
+Redis Enhanced provides 37 comprehensive operations organized by category:
 
 ### 🔑 **Basic Operations**
 
@@ -293,6 +293,6 @@ npm run test:coverage # Run with coverage report
 
 ---
 
-**Author**: Vicente Russo Neto (vicente.russo@gmail.com)  
+**Author**: Ahmed Agbabiaka (franknitty69@gmail.com) forked from Vicente Russo Neto (vicente.russo@gmail.com)  
 **License**: MIT  
-**Repository**: https://github.com/vicenterusso/n8n-nodes-redis-enhanced
+**Repository**: https://github.com/franknitty69/n8n-nodes-redis-advanced
